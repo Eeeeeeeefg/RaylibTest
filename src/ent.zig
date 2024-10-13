@@ -1,4 +1,6 @@
 const rl = @import("raylib");
+const swidth = 1600;
+const sheight = 600;
 
 pub const Ball = struct {
     rect: rl.Rectangle,
@@ -19,7 +21,7 @@ pub const Ball = struct {
 
     pub fn screenBounds(self: *Ball) !void {
         //right boundary
-        if (self.rect.x >= 1100) {
+        if (self.rect.x >= swidth - rl.Rectangle.width) {
             self.moveBools[0] = false;
             self.rect.x -= 15;
         } else {
@@ -40,7 +42,7 @@ pub const Ball = struct {
             self.moveBools[2] = true;
         }
         //bottom boundary
-        if (self.rect.y >= 550) {
+        if (self.rect.y >= sheight - rl.Rectangle.height) {
             self.moveBools[3] = false;
             self.rect.y -= 15;
         } else {
