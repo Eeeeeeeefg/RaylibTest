@@ -33,21 +33,20 @@ pub fn main() anyerror!void {
     defer rl.closeWindow();
 
     rl.setTargetFPS(60);
+    var ctr: u8 = 0;
 
     while (!rl.windowShouldClose()) {
-        //handles movement
-        try _p.Move(&P);
-        try _p.screenBounds(&P);
-        try _p.Move(&P2);
-        try _p.screenBounds(&P2);
-        try ball.collide(swidth, sheight);
-        try ball.screenBounds();
-        try ball.move();
-
         rl.beginDrawing();
         defer rl.endDrawing();
+        if (ctr <= 255) {
+            ctr = 0;
+        } else {
+            ctr += 1;
+        }
 
-        try physicsLoop();
+        if (ctr % 4 == 0) {
+            try physicsLoop();
+        } else {}
 
         rl.clearBackground(rl.Color.blue);
         rl.drawRectangleRec(P.rect, P.color);
@@ -62,6 +61,5 @@ fn physicsLoop() !void {
     try _p.Move(&P2);
     try _p.screenBounds(&P2);
     try ball.collide(swidth, sheight);
-    try ball.screenBounds();
     try ball.move();
 }
